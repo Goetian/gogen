@@ -17,7 +17,7 @@ templ:
 	@templ generate --watch --proxy=http://localhost:3000
 
 build:
-	tailwindcss -i view/css/app.css -o public/styles.css
+	./node_modules/.bin/tailwindcss -i view/css/app.css -o public/styles.css
 	@templ generate view
 	@go build -tags dev -o bin/gogen main.go 
 
