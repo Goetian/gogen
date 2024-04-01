@@ -3,7 +3,17 @@ package handler
 import (
 	"log/slog"
 	"net/http"
+
+	"github.com/goetian/gogen/models"
 )
+
+func getAuthUser(r *http.Request) models.AuthUser {
+	user, success := r.Context().Value(models.UserContextKey).(models.AuthUser)
+	if !success {
+		return models.AuthUser{}
+	}
+	return user
+}
 
 func MakeHandler(h func(http.ResponseWriter, *http.Request) error) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

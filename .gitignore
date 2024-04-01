@@ -1,3 +1,5 @@
 .env
 .Makefile
 *_templ.go
+temp
+.air.toml
