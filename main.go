@@ -25,6 +25,7 @@ func main() {
 	router.Use(handler.WithAuthentication)
 	router.Handle("/*", http.StripPrefix("/", http.FileServer(http.FS(FS))))
 	router.Get("/", handler.MakeHandler(handler.HandleHomeIndex))
+	router.Get("/login", handler.MakeHandler(handler.HandleLogInUser))
 
 	port := os.Getenv("HTTP_LISTEN_ADDR")
 	slog.Info("Server Up", "port", port)
