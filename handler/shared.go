@@ -4,8 +4,13 @@ import (
 	"log/slog"
 	"net/http"
 
+	"github.com/a-h/templ"
 	"github.com/goetian/gogen/models"
 )
+
+func render(w http.ResponseWriter, r *http.Request, com templ.Component) error {
+	return com.Render(r.Context(), w)
+}
 
 func getAuthUser(r *http.Request) models.AuthUser {
 	user, success := r.Context().Value(models.UserContextKey).(models.AuthUser)

@@ -1,13 +1,29 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/goetian/gogen/view/auth"
+	"github.com/nedpals/supabase-go"
 )
 
 func HandleLogInUser(w http.ResponseWriter, r *http.Request) error {
 	return auth.Login().Render(r.Context(), w)
+
+}
+
+func HandleLogin(w http.ResponseWriter, r *http.Request) error {
+	credentials := supabase.UserCredentials{
+		Email:    r.FormValue("email"),
+		Password: r.FormValue("password"),
+	}
+
+	fmt.Println(credentials)
+
+	return render(w, r, auth.LoginForm(credentials, auth.LogInErrors{
+		InvalidInput: "Invalid Credentials",
+	}))
 
 }
 
