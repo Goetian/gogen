@@ -9,6 +9,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/goetian/gogen/handler"
+	supabase "github.com/goetian/gogen/pkg/superbase"
 	"github.com/joho/godotenv"
 )
 
@@ -36,5 +37,5 @@ func initMain() error {
 	if err := godotenv.Load(); err != nil {
 		return err
 	}
-	return nil
+	return supabase.Init()
 }
