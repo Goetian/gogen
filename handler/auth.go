@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"log/slog"
 	"net/http"
 
 	"github.com/goetian/gogen/pkg/sb"
@@ -24,16 +25,35 @@ func HandleLogin(w http.ResponseWriter, r *http.Request) error {
 		return render(w, r, auth.LoginForm(credentials, auth.LogInErrors{InvalidInput: "Invalid E-Mail"}))
 	}
 
+	passWordInfo, isValidPW := sb.IsValidPassword(credentials.Password)
+	if !isValidPW {
+		return render(w, r, auth.LoginForm(credentials, auth.LogInErrors{
+			InvalidInput: passWordInfo,
+		}))
+	}
+
 	responds, err := sb.Client.Auth.SignIn(r.Context(), credentials)
 	if err != nil {
+		slog.Error("Login Error SB-Client", "err", "err")
 		fmt.Println(err.Error())
 	}
 	fmt.Println(credentials)
 	fmt.Println(responds)
 
-	return render(w, r, auth.LoginForm(credentials, auth.LogInErrors{
-		InvalidInput: "Invalid Credentials",
-	}))
+	cookie := &http.Cookie{
+		Value:    responds.AccessToken,
+		Name:     "at",
+		Path:     "/",
+		HttpOnly: true,
+		Secure:   true,
+	}
+
+	http.SetCookie(w, cookie)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+	// return render(w, r, auth.LoginForm(credentials, auth.LogInErrors{
+	// 	InvalidInput: "Invalid Credentials",
+	// }))
+	return nil
 
 }
 
