@@ -44,7 +44,7 @@ templ LoginForm(c supabase.UserCredentials, errors LogInErrors) {
 				<input type="password" name="password" class="grow" value="" placeholder="Password"/>
 			</label>
 			if len(errors.InvalidInput) > 0 {
-				<span class="label-text-alt text-error">Username or Password false</span>
+				<span class="label-text-alt text-error">{ errors.InvalidInput }</span>
 			}
 			<div class="flex justify-center mt-7">
 				<button class="btn btn-wide transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-green-500 duration-300">

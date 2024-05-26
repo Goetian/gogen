@@ -15,9 +15,10 @@ templ App(nav bool) {
 			<script src="https://unpkg.com/htmx.org@1.9.9" defer></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
 		</head>
-		<body class="antialiased">
+		<body id="doc" class="antialiased">
 			if nav {
 				@ui.Navigation()
+				<div id="mainView"></div>
 			}
 			{ children... }
 		</body>

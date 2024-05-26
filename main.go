@@ -9,7 +9,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/goetian/gogen/handler"
-	supabase "github.com/goetian/gogen/pkg/superbase"
+	supabase "github.com/goetian/gogen/pkg/sb"
 	"github.com/joho/godotenv"
 )
 

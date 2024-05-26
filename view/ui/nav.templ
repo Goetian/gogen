@@ -31,7 +31,7 @@ templ Navigation() {
 						<li><a>Logout</a></li>
 					</ul>
 				} else {
-					<button class="btn btn-sm btn-error">Log In</button>
+					<button class="btn btn-sm btn-error" hx-get="/login" hx-target="#doc">Login</button>
 				}
 			</div>
 		</div>
