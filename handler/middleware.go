@@ -8,7 +8,7 @@ import (
 	"github.com/goetian/gogen/models"
 )
 
-const test = false
+const test = true
 
 func WithAuthentication(next http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
