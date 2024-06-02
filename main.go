@@ -21,10 +21,14 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	router := chi.NewMux()
 	router.Use(handler.WithAuthentication)
+
+	staticFileServer := http.StripPrefix("/static/", http.FileServer(http.Dir("static")))
+
 	router.Handle("/*", http.StripPrefix("/", http.FileServer(http.FS(FS))))
+	router.Handle("/static/*", staticFileServer)
+
 	router.Get("/", handler.MakeHandler(handler.HandleHomeIndex))
 	router.Get("/login", handler.MakeHandler(handler.HandleLogInUser))
 	router.Post("/handleLogin", handler.MakeHandler(handler.HandleLogin))

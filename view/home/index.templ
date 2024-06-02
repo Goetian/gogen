@@ -1,11 +1,27 @@
 package home
 
-import "github.com/goetian/gogen/view/layout"
+import (
+"github.com/goetian/gogen/view/layout"
+"github.com/goetian/gogen/models"
+)
 
 templ Index() {
 @layout.App(true) {
-<div>
-
-</div>
+<div></div>
 }
+}
+
+type ViewData struct {
+Images []models.Image
+}
+
+templ Gallery(images []models.Image) {
+<div class="grid grid-cols-4" id="gallery"></div>
+for _, image :=range images {
+@GalleryImage(image)
+}
+}
+
+templ GalleryImage(image models.Image) {
+<div class="bg-neutral"></div>
 }
